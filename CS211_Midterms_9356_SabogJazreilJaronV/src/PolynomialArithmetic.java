@@ -68,11 +68,58 @@ public class PolynomialArithmetic {
     }
 
     public void polynomialSubtraction() {
+        System.out.println("POLYNOMIAL ADDITION");
+        System.out.println("FIRST POLYNOMIAL");
+        LinkedList<Term> firstPolynomial = construct();
+        System.out.println("SECOND POLYNOMIAL");
+        LinkedList<Term> secondPolynomial = construct();
+
+        LinkedList<Term> differencePolynomial = new LinkedList<>();
+
+        float sum;
+        for (int i = 0 ; i <= firstPolynomial.size() - 1; i++) {
+            Term firstPoly = firstPolynomial.get(i);
+            boolean matchFound = false;
+            for (int j = 0; j <= secondPolynomial.size() - 1 ; j++) {
+                Term secondPoly = secondPolynomial.get(j);
+                if (firstPoly.getDegree() == secondPoly.getDegree()) {
+                    sum = firstPoly.getCoefficient() - secondPoly.getCoefficient();
+                    differencePolynomial.add(new Term(sum, firstPoly.getDegree()));
+                    matchFound = true;
+                    break;
+                }
+            }
+
+            if (!matchFound) differencePolynomial.add(firstPoly);
+        }
+        System.out.println("The Sum of " + printPolynomial(firstPolynomial) + " and " +
+                printPolynomial(secondPolynomial)  + " is " + printPolynomial(differencePolynomial));
+        System.out.print("Press ENTER to continue...");
+        input.nextLine();
+        System.out.println();
 
     }
 
     public void polynomialMultiplication() {
+        System.out.println("POLYNOMIAL ADDITION");
+        System.out.println("FIRST POLYNOMIAL");
+        LinkedList<Term> firstPolynomial = construct();
+        System.out.println("SECOND POLYNOMIAL");
+        LinkedList<Term> secondPolynomial = construct();
 
+        LinkedList<Term> productPolynomial = new LinkedList<>();
+
+        float sum;
+        for (int i = 0 ; i <= firstPolynomial.size() - 1; i++) {
+            Term firstPoly = firstPolynomial.get(i);
+
+            for (int j = 0; j <= secondPolynomial.size() - 1 ; j++) {
+
+                Term secondPoly = secondPolynomial.get(j);
+
+            }
+
+        }
     }
 
     public void polynomialDivision() {
