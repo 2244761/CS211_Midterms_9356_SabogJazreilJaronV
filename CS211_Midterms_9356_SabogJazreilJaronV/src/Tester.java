@@ -1,6 +1,9 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Tester {
+    private final Scanner input = new Scanner(System.in);
+
     public static void main(String[] args) {
         Tester demo;
         try {
@@ -15,23 +18,37 @@ public class Tester {
     public void run() {
         PolynomialArithmetic polynomialCalculator = new PolynomialArithmetic();
 
-         Scanner input = new Scanner(System.in);
         int choice = 0;
 
         while (true) {
             displayMenu();
-            choice = Integer.parseInt(input.nextLine());
+            choice = validateChoice();
 
             switch (choice) {
-                case 1 -> polynomialCalculator.polynomialEvaluation();
-                case 2 -> polynomialCalculator.polynomialAddition();
+                case 1 -> {
+                    System.out.println("POLYNOMIAL EVALUATION\n");
+                    polynomialCalculator.polynomialEvaluation();
+                }
+                case 2 -> {
+                    System.out.println("POLYNOMIAL ADDITION\n");
+                    polynomialCalculator.polynomialAddition();
+                }
+                case 3 -> {
+                    System.out.println("POLYNOMIAL SUBTRACTION\n");
+                    polynomialCalculator.polynomialSubtraction();
+                }
+                case 4 -> {
+                    System.out.println("POLYNOMIAL MULTIPLICATION\n");
+                    polynomialCalculator.polynomialMultiplication();
+                }
+                case 5 -> polynomialCalculator.polynomialDivision();
                 case 6 -> {
                     System.out.println("System terminated.");
                     System.exit(0);
                 }
+                default -> System.out.println("Pick from the given options.\n");
             }
         }
-
     }
 
     public void displayMenu() {
@@ -44,5 +61,20 @@ public class Tester {
         System.out.println("6. Quit");
         System.out.println("------------------------------------------------------");
         System.out.print("Enter: ");
+    }
+
+    public int validateChoice() {
+        boolean flag = false;
+        int choice = 0;
+
+        while (!flag) {
+            try {
+                choice = Integer.parseInt(input.nextLine());
+                flag = true;
+            } catch (NumberFormatException | InputMismatchException e) {
+                System.out.print("Invalid Input. Enter again: ");
+            }
+        }
+       return choice;
     }
 }
