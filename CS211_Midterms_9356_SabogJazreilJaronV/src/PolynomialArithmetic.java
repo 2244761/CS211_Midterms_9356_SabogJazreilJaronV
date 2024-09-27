@@ -1,13 +1,11 @@
-import java.util.InputMismatchException;
-import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.*;
 
 public class PolynomialArithmetic {
     private final Scanner input = new Scanner(System.in);
     public void polynomialEvaluation() {
-        LinkedList<Term> Polynomial = construct();
+        LinkedList<Term> polynomial = construct();
 
-        System.out.print("Value to be assigned to the Literals of the Polynomial: ");
+        System.out.print("Value Assigned to the Literals: ");
         byte value;
 
         while (true) {
@@ -15,52 +13,68 @@ public class PolynomialArithmetic {
                  value = Byte.parseByte(input.nextLine());
                 break;
             } catch (NumberFormatException | InputMismatchException e) {
-                System.out.print("Enter a valid input: ");
+                System.out.print("Enter a Number: ");
             }
         }
 
         float total = 0;
-
-        for (Term term : Polynomial) {
+        for (Term term : polynomial) {
             if (term.getDegree() <= 1) {
                 total += term.getCoefficient() * value;
             } else {
                 total += (float) (term.getCoefficient() * Math.pow(value, term.getDegree()));
             }
         }
-        System.out.println("The polynomial evaluates to : " + total);
+        System.out.println("The Polynomial [" + printPolynomial(polynomial) + "] evaluates to " + total);
         System.out.print("Press ENTER to continue...");
         input.nextLine();
         System.out.println();
     }
 
     public void polynomialAddition() {
-        System.out.println("POLYNOMIAL ADDITION");
         System.out.println("FIRST POLYNOMIAL");
         LinkedList<Term> firstPolynomial = construct();
         System.out.println("SECOND POLYNOMIAL");
         LinkedList<Term> secondPolynomial = construct();
 
-        LinkedList<Term> sumPolynomial = new LinkedList<>();
+        LinkedList<Term> resultant = new LinkedList<>();
 
-        float sum;
         for (int i = 0 ; i <= firstPolynomial.size() - 1; i++) {
             Term firstPoly = firstPolynomial.get(i);
             boolean matchFound = false;
+
             for (int j = 0; j <= secondPolynomial.size() - 1 ; j++) {
                 Term secondPoly = secondPolynomial.get(j);
+
                 if (firstPoly.getDegree() == secondPoly.getDegree()) {
-                    sum = firstPoly.getCoefficient() + secondPoly.getCoefficient();
-                    sumPolynomial.add(new Term(sum, firstPoly.getDegree()));
+                    float sum = firstPoly.getCoefficient() + secondPoly.getCoefficient();
+                    resultant.add(new Term(sum, firstPoly.getDegree()));
+                    matchFound = true;
+                    break;
+                } // end of if statement
+
+            } // end of inner loop
+
+            if (!matchFound) resultant.add(firstPoly);
+        } // end of for loop
+
+        for (Term secondPoly : secondPolynomial) {
+            boolean matchFound = false;
+
+            for (Term resultantTerm : resultant) {
+                if (secondPoly.getDegree() == resultantTerm.getDegree()) {
                     matchFound = true;
                     break;
                 }
             }
 
-            if (!matchFound) sumPolynomial.add(firstPoly);
+            if (!matchFound) {
+                resultant.add(secondPoly);
+            }
         }
-        System.out.println("The Sum of " + printPolynomial(firstPolynomial) + " and " +
-                printPolynomial(secondPolynomial)  + " is " + printPolynomial(sumPolynomial));
+
+        System.out.println("The Sum of [" + printPolynomial(firstPolynomial) + "] and [" +
+                printPolynomial(secondPolynomial)  + "] = " + printPolynomial(resultant) + "\n");
         System.out.print("Press ENTER to continue...");
         input.nextLine();
         System.out.println();
@@ -68,32 +82,44 @@ public class PolynomialArithmetic {
     }
 
     public void polynomialSubtraction() {
-        System.out.println("POLYNOMIAL ADDITION");
         System.out.println("FIRST POLYNOMIAL");
         LinkedList<Term> firstPolynomial = construct();
         System.out.println("SECOND POLYNOMIAL");
         LinkedList<Term> secondPolynomial = construct();
 
-        LinkedList<Term> differencePolynomial = new LinkedList<>();
+        LinkedList<Term> resultant = new LinkedList<>();
 
-        float sum;
-        for (int i = 0 ; i <= firstPolynomial.size() - 1; i++) {
-            Term firstPoly = firstPolynomial.get(i);
+        for (Term firstPoly : firstPolynomial) {
             boolean matchFound = false;
-            for (int j = 0; j <= secondPolynomial.size() - 1 ; j++) {
-                Term secondPoly = secondPolynomial.get(j);
-                if (firstPoly.getDegree() == secondPoly.getDegree()) {
-                    sum = firstPoly.getCoefficient() - secondPoly.getCoefficient();
-                    differencePolynomial.add(new Term(sum, firstPoly.getDegree()));
+
+            for (Term secondPoly : secondPolynomial) {
+                if (firstPoly.equals(secondPoly)) {
+                    float difference = firstPoly.getCoefficient() - secondPoly.getCoefficient();
+                    resultant.add(new Term(difference, firstPoly.getDegree()));
+                    matchFound = true;
+                    break;
+                }
+
+            }
+            if (!matchFound) resultant.add(firstPoly);
+        }
+
+        for (Term secondPoly : secondPolynomial) {
+            boolean matchFound = false;
+
+            for (Term resultantTerm : resultant) {
+                if (secondPoly.equals(resultantTerm)) {
                     matchFound = true;
                     break;
                 }
             }
 
-            if (!matchFound) differencePolynomial.add(firstPoly);
+            if (!matchFound) {
+                resultant.add(secondPoly);
+            }
         }
-        System.out.println("The Sum of " + printPolynomial(firstPolynomial) + " and " +
-                printPolynomial(secondPolynomial)  + " is " + printPolynomial(differencePolynomial));
+        System.out.println("The Difference of [" + printPolynomial(firstPolynomial) + "] and [" +
+                printPolynomial(secondPolynomial)  + "] = " + printPolynomial(resultant) + "\n");
         System.out.print("Press ENTER to continue...");
         input.nextLine();
         System.out.println();
@@ -101,25 +127,46 @@ public class PolynomialArithmetic {
     }
 
     public void polynomialMultiplication() {
-        System.out.println("POLYNOMIAL ADDITION");
         System.out.println("FIRST POLYNOMIAL");
         LinkedList<Term> firstPolynomial = construct();
         System.out.println("SECOND POLYNOMIAL");
         LinkedList<Term> secondPolynomial = construct();
 
-        LinkedList<Term> productPolynomial = new LinkedList<>();
+        LinkedList<Term> resultant = new LinkedList<>();
+        LinkedList<Term> temp = new LinkedList<>();
 
-        float sum;
-        for (int i = 0 ; i <= firstPolynomial.size() - 1; i++) {
-            Term firstPoly = firstPolynomial.get(i);
 
-            for (int j = 0; j <= secondPolynomial.size() - 1 ; j++) {
 
-                Term secondPoly = secondPolynomial.get(j);
-
+        for (Term firstPoly : firstPolynomial) {
+            for (Term secondPoly: secondPolynomial) {
+                int degree = firstPoly.getDegree() + secondPoly.getDegree();
+                float coefficient = firstPoly.getCoefficient() * secondPoly.getCoefficient();
+                temp.add(new Term(coefficient, degree));
             }
-
         }
+
+        for (int i = 0; i <= temp.size() - 1; i++) {
+            Term currentTerm = temp.get(i);
+
+            for (int j = 1; j <= temp.size() - 1; j++) {
+                temp.remove(i);
+
+                Term nextTerm = temp.get(j);
+
+                if (currentTerm.getDegree() == nextTerm.getDegree()) {
+                    float coefficient = currentTerm.getCoefficient() + nextTerm.getCoefficient();
+                    temp.remove();
+                }
+            }
+        }
+
+        Collections.sort(temp);
+
+        System.out.println("The Product of " + printPolynomial(firstPolynomial) + " and " +
+                printPolynomial(secondPolynomial)  + " is " + (temp));
+        System.out.print("Press ENTER to continue...");
+        input.nextLine();
+        System.out.println();
     }
 
     public void polynomialDivision() {
@@ -130,14 +177,14 @@ public class PolynomialArithmetic {
         LinkedList<Term> Polynomial = new LinkedList<>();
         byte totalTerms = setTotalTerms();
 
-        for (int i = totalTerms; i >= 0; i--) {
-            System.out.print("Enter the Coefficient of the Term with Degree " + i + ": ");
+        for (int i = totalTerms; i > 0; i--) {
+            System.out.print("Enter the Coefficient of the Term with Degree " + (i - 1) + ": ");
             float num = validateCoefficient();
             if (num != 0) {
-                Polynomial.add(new Term(num, i));
+                Polynomial.add(new Term(num, i-1));
             }
         }
-        System.out.print("The Polynomial entered is " + printPolynomial(Polynomial) + "\n");
+        System.out.println("Polynomial Entered [" + printPolynomial(Polynomial) + "]");
 
         return Polynomial;
     }
@@ -158,7 +205,7 @@ public class PolynomialArithmetic {
     }
 
     public byte setTotalTerms() {
-        System.out.print("How many terms will there be in the polynomial: ");
+        System.out.print("Total Terms to be assigned to the Polynomial: ");
         byte totalTerms = 0;
         boolean flag = false;
 
@@ -169,14 +216,13 @@ public class PolynomialArithmetic {
                 else if (totalTerms > 10) System.out.print("Total terms is limited to 10 only. Enter a lower value: ");
                 else flag = true;
             } catch (NumberFormatException | InputMismatchException e) {
-                System.out.print("Invalid Input. Please enter a Integer: ");
+                System.out.print("Invalid Input. Please Enter a Integer: ");
             }
         }
         return totalTerms;
     }
 
     public String printPolynomial(LinkedList<Term> polynomial) {
-        StringBuilder results = new StringBuilder();
 //        for (Term term : polynomial) {
 //            if (term.getDegree() == polynomial.getFirst().getDegree()) {
 //                if (Math.signum(term.getCoefficient()) != 1) {
@@ -243,7 +289,9 @@ public class PolynomialArithmetic {
 //            // delete the last literal if the degree is 0
 //            if (isLast) results.deleteCharAt(results.length() - 1);
 //        }
+        StringBuilder results = new StringBuilder();
 
+        Collections.sort(polynomial);
 
         for (Term term : polynomial) {
             boolean isFirst = term.getDegree() == polynomial.getFirst().getDegree();
@@ -255,7 +303,7 @@ public class PolynomialArithmetic {
                 if (isFirst) results.append("- ");
                 else results.append(" - ");
 
-                if (impliedCoefficients) {
+                if (impliedCoefficients && !isLast) {
                     results.append(term.getLiteral());
                 } else {
                     results.append(Math.abs(term.getCoefficient())).append(term.getLiteral());
@@ -276,6 +324,8 @@ public class PolynomialArithmetic {
             // delete the last literal if the degree is 0
             if (isLast && term.getDegree() == 0) results.deleteCharAt(results.length() - 1);
         }
+
+
         return results.toString();
     }
 

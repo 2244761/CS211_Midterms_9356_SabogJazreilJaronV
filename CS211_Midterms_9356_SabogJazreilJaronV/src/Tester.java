@@ -26,22 +26,30 @@ public class Tester {
 
             switch (choice) {
                 case 1 -> {
-                    System.out.println("POLYNOMIAL EVALUATION\n");
+                    System.out.println("\nPOLYNOMIAL EVALUATION");
+                    System.out.println("-------------------------");
                     polynomialCalculator.polynomialEvaluation();
                 }
                 case 2 -> {
-                    System.out.println("POLYNOMIAL ADDITION\n");
+                    System.out.println("\nPOLYNOMIAL ADDITION");
+                    System.out.println("-------------------------");
                     polynomialCalculator.polynomialAddition();
                 }
                 case 3 -> {
-                    System.out.println("POLYNOMIAL SUBTRACTION\n");
+                    System.out.println("\nPOLYNOMIAL SUBTRACTION");
+                    System.out.println("-------------------------");
                     polynomialCalculator.polynomialSubtraction();
                 }
                 case 4 -> {
-                    System.out.println("POLYNOMIAL MULTIPLICATION\n");
+                    System.out.println("\nPOLYNOMIAL MULTIPLICATION");
+                    System.out.println("-------------------------");
                     polynomialCalculator.polynomialMultiplication();
                 }
-                case 5 -> polynomialCalculator.polynomialDivision();
+                case 5 -> {
+                    System.out.println("\nPOLYNOMIAL DIVISION");
+                    System.out.println("-------------------------");
+                    polynomialCalculator.polynomialDivision();
+                }
                 case 6 -> {
                     System.out.println("System terminated.");
                     System.exit(0);
