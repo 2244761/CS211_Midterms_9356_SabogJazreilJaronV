@@ -1,8 +1,16 @@
+/*
+    Name: Sabog, Jazreil Jaron V.
+    Date: October 7, 2024,
+    Due Date: Oct 9, 2024 - 11:55 AM
+    Class Code: CS 9356
+ */
+
+package midterms.datastructures;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Tester {
-    private final Scanner input = new Scanner(System.in);
 
     public static void main(String[] args) {
         Tester demo;
@@ -15,6 +23,9 @@ public class Tester {
         System.exit(0);
     }
 
+    /**
+     * User interface loop. Displays a menu, validates user input, and calls the appropriate methods based on the user's choice.
+     */
     public void run() {
         PolynomialArithmetic polynomialCalculator = new PolynomialArithmetic();
 
@@ -59,19 +70,28 @@ public class Tester {
         }
     }
 
+    /**
+     * Displays the menu of available operations
+     */
     public void displayMenu() {
         System.out.println("-------------------------MENU-------------------------");
-        System.out.println("1. Evaluate a Polynomial");
+        System.out.println("1. Evaluate a midterms.datastructures.Polynomial");
         System.out.println("2. Add Two Polynomials");
-        System.out.println("3. Subtract a Polynomial from another Polynomial");
-        System.out.println("4. Multiply Two Polynomial ");
-        System.out.println("5. Divide a Polynomial from another Polynomial");
+        System.out.println("3. Subtract a midterms.datastructures.Polynomial from another midterms.datastructures.Polynomial");
+        System.out.println("4. Multiply Two midterms.datastructures.Polynomial ");
+        System.out.println("5. Divide a midterms.datastructures.Polynomial from another midterms.datastructures.Polynomial");
         System.out.println("6. Quit");
         System.out.println("------------------------------------------------------");
         System.out.print("Enter: ");
     }
 
+    /**
+     * This method validates user input for the menu choice
+     * @return The validated integer representing the user's menu choice
+     */
     public int validateChoice() {
+        Scanner input = new Scanner(System.in);
+
         boolean flag = false;
         int choice = 0;
 
