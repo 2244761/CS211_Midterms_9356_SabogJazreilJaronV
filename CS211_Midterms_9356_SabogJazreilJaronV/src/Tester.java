@@ -18,7 +18,7 @@ public class Tester {
     public void run() {
         PolynomialArithmetic polynomialCalculator = new PolynomialArithmetic();
 
-        int choice = 0;
+        int choice;
 
         while (true) {
             displayMenu();
@@ -27,27 +27,27 @@ public class Tester {
             switch (choice) {
                 case 1 -> {
                     System.out.println("\nPOLYNOMIAL EVALUATION");
-                    System.out.println("-------------------------");
+                    System.out.println("------------------------------");
                     polynomialCalculator.polynomialEvaluation();
                 }
                 case 2 -> {
                     System.out.println("\nPOLYNOMIAL ADDITION");
-                    System.out.println("-------------------------");
+                    System.out.println("------------------------------");
                     polynomialCalculator.polynomialAddition();
                 }
                 case 3 -> {
                     System.out.println("\nPOLYNOMIAL SUBTRACTION");
-                    System.out.println("-------------------------");
+                    System.out.println("------------------------------");
                     polynomialCalculator.polynomialSubtraction();
                 }
                 case 4 -> {
                     System.out.println("\nPOLYNOMIAL MULTIPLICATION");
-                    System.out.println("-------------------------");
+                    System.out.println("------------------------------");
                     polynomialCalculator.polynomialMultiplication();
                 }
                 case 5 -> {
                     System.out.println("\nPOLYNOMIAL DIVISION");
-                    System.out.println("-------------------------");
+                    System.out.println("------------------------------");
                     polynomialCalculator.polynomialDivision();
                 }
                 case 6 -> {
@@ -80,9 +80,9 @@ public class Tester {
                 choice = Integer.parseInt(input.nextLine());
                 flag = true;
             } catch (NumberFormatException | InputMismatchException e) {
-                System.out.print("Invalid Input. Enter again: ");
+                System.out.print("Invalid Input. Choose from the following options: ");
             }
         }
-       return choice;
+        return choice;
     }
 }
