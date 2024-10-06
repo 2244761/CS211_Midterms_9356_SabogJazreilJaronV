@@ -1,24 +1,24 @@
 public class Term implements Comparable<Term> {
     private float coefficient;
-    private char literal;
+    private final char LITERAL;
     private int degree;
 
     public Term() {
         coefficient = 0.0f;
-        literal = 'x';
+        LITERAL = 'x';
         degree = 0;
     }
 
     public Term(float coefficient, int degree) {
         this.coefficient = coefficient;
-        literal = 'x';
+        LITERAL = 'x';
         this.degree = degree;
     }
 
     public float getCoefficient() {
         return coefficient;
     }
-    public char getLiteral() { return literal; }
+    public char getLiteral() { return LITERAL; }
 
     public int getDegree() {
         return degree;
@@ -27,16 +27,13 @@ public class Term implements Comparable<Term> {
     public void setCoefficient(float coefficient) {
         this.coefficient = coefficient;
     }
-    public void setLiteral(char literal) {
-        this.literal = literal;
-    }
 
     public void setDegree(int degree) {
         this.degree = degree;
     }
 
     public String toString() {
-        return coefficient + "" + literal + "^" + degree;
+        return coefficient + "" + LITERAL + "^" + degree;
     }
 
     @Override
@@ -47,9 +44,5 @@ public class Term implements Comparable<Term> {
 
         // If degrees are equal, compare coefficients
         return Float.compare(this.getCoefficient(), other.getCoefficient());
-    }
-
-    public boolean equals(Term other) {
-        return this.getDegree() == other.getDegree();
     }
 }
